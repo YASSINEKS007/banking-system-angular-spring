@@ -15,7 +15,11 @@ export class CustomersService {
     return this.http.get('http://localhost:8085/customers');
   }
 
-  deleteCustomer(id: String) {
+  getCustomer(id: number) {
+    return this.http.get<Customer>(`http://localhost:8085/customers/${id}`);
+  }
+
+  deleteCustomer(id: number) {
     return this.http.delete(`http://localhost:8085/delete-customer/${id}`);
   }
 

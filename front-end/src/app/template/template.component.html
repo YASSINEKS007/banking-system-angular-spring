@@ -6,12 +6,19 @@
   </button>
   <span style="flex: auto"></span>
 
-  <button mat-button mat-raised-button color="accent">Logout</button>
+  <button mat-button *ngIf="this.authService.isAuthenticated==true">{{ authService.username }}</button>
+  <button (click)="logout()" mat-button mat-raised-button color="accent">Logout</button>
 </mat-toolbar>
 
 <mat-drawer-container>
   <mat-drawer #myDrawer opened="true" mode="side" position="start">
     <mat-list>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/my-infos">
+          <mat-icon>info</mat-icon>
+          My Informations
+        </button>
+      </mat-list-item>
       <mat-list-item>
         <button mat-button routerLink="/admin/dashboard">
           <mat-icon>dashboard</mat-icon>
