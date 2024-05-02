@@ -20,12 +20,14 @@ import {MatCardActions, MatCardContent, MatCardHeader, MatCardModule} from "@ang
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
-import { AddCustomerComponent } from './add-customer/add-customer.component';
+import {AddCustomerComponent} from './add-customer/add-customer.component';
 import {MatDialogClose} from "@angular/material/dialog";
-import { UpdateCustomerComponent } from './update-customer/update-customer.component';
+import {UpdateCustomerComponent} from './update-customer/update-customer.component';
+import {appHttpInterceptor} from "./interceptors/app-http.interceptor";
+import { UserInfosComponent } from './user-infos/user-infos.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { UpdateCustomerComponent } from './update-customer/update-customer.compo
     LoginComponent,
     AddCustomerComponent,
     UpdateCustomerComponent,
+    UserInfosComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,7 @@ import { UpdateCustomerComponent } from './update-customer/update-customer.compo
   ],
   providers: [
     provideAnimationsAsync(),
+    {provide: HTTP_INTERCEPTORS, useClass: appHttpInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

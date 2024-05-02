@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Customer } from "../model/customer.model";
-import { CustomersService } from "../services/customers.service";
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Customer} from "../model/customer.model";
+import {CustomersService} from "../services/customers.service";
 
 @Component({
   selector: 'app-add-customer',
@@ -19,7 +19,8 @@ export class AddCustomerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private customerService: CustomersService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.addCustomerForm = this.fb.group({

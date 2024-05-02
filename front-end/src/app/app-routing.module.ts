@@ -7,17 +7,23 @@ import {AccountsComponent} from "./accounts/accounts.component";
 import {TransactionsComponent} from "./transactions/transactions.component";
 import {LoginComponent} from "./login/login.component";
 import {TemplateComponent} from "./template/template.component";
+import {AuthenticationGuard} from "./guards/authentication.guard";
+import {UserInfosComponent} from "./user-infos/user-infos.component";
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
-  {path : "admin", component : TemplateComponent, children : [
+  {
+    path: "admin", component: TemplateComponent, canActivate: [AuthenticationGuard],
+    children: [
       {path: "login", redirectTo: "/login", pathMatch: "full"},
+      {path: "my-infos", component: UserInfosComponent},
       {path: "dashboard", component: DashboardComponent},
       {path: "new-transaction", component: NewTransactionComponent},
       {path: "customers", component: CustomersComponent},
       {path: "accounts", component: AccountsComponent},
       {path: "transactions", component: TransactionsComponent}
-    ]}
+    ]
+  }
 
 ];
 
