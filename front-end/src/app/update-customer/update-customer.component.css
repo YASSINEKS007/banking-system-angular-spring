@@ -1,0 +1,20 @@
+mat-form-field {
+  width: 90%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.btn-sec {
+  text-align: right;
+  margin-top: 1.5em;
+}
+
+.primary {
+  color: #1976d2;
+}
+
+.add-customer-form {
+  width: 100%;
+}
