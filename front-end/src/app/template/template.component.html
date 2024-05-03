@@ -6,6 +6,8 @@
   </button>
   <span style="flex: auto"></span>
 
+  <button mat-button routerLink="/admin/customers" *ngIf="this.authService.roles.includes('ADMIN')">Customers</button>
+  <button mat-button routerLink="/admin/accounts" *ngIf="this.authService.roles.includes('ADMIN')">Accounts</button>
   <button mat-button *ngIf="this.authService.isAuthenticated==true">{{ authService.username }}</button>
   <button (click)="logout()" mat-button mat-raised-button color="accent">Logout</button>
 </mat-toolbar>
@@ -19,6 +21,7 @@
           My Informations
         </button>
       </mat-list-item>
+
       <mat-list-item>
         <button mat-button routerLink="/admin/dashboard">
           <mat-icon>dashboard</mat-icon>
@@ -27,16 +30,9 @@
       </mat-list-item>
 
       <mat-list-item>
-        <button mat-button routerLink="/admin/customers">
-          <mat-icon>group</mat-icon>
-          Customers
-        </button>
-      </mat-list-item>
-
-      <mat-list-item>
-        <button mat-button routerLink="/admin/accounts">
+        <button mat-button routerLink="/admin/my-accounts">
           <mat-icon>account_balance</mat-icon>
-          Accounts
+          My Accounts
         </button>
       </mat-list-item>
 

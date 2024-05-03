@@ -1,13 +1,7 @@
 package ma.enset.backend.mappers;
 
-import ma.enset.backend.dtos.AccountOperationDTO;
-import ma.enset.backend.dtos.CurrentAccountDTO;
-import ma.enset.backend.dtos.CustomerDTO;
-import ma.enset.backend.dtos.SavingAccountDTO;
-import ma.enset.backend.entities.AccountOperation;
-import ma.enset.backend.entities.CurrentAccount;
-import ma.enset.backend.entities.Customer;
-import ma.enset.backend.entities.SavingAccount;
+import ma.enset.backend.dtos.*;
+import ma.enset.backend.entities.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +48,15 @@ public class BankMapper {
         currentAccount.setCustomer(fromCustomerDTO(currentBankAccountDTO.getCustomerDTO()));
         return currentAccount;
     }
+
+    public BankAccountDTO fromBankAccount(BankAccount bankAccount) {
+        if (bankAccount instanceof SavingAccount) {
+            return fromSavingBankAccount((SavingAccount) bankAccount);
+        } else {
+            return fromCurrentBankAccount((CurrentAccount) bankAccount);
+        }
+    }
+
 
     public AccountOperationDTO fromAccountOperation(AccountOperation accountOperation){
         AccountOperationDTO accountOperationDTO=new AccountOperationDTO();

@@ -13,4 +13,5 @@ public class CurrentAccountDTO extends BankAccountDTO {
     private AccountStatus accountStatus;
     private CustomerDTO customerDTO;
     private double overDraft;
+
 }

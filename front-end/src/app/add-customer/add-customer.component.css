@@ -1,5 +1,15 @@
-mat-form-field {
-  width: 90%;
+.dialog-title {
+  text-align: center;
+  color: #1976d2;
+  margin-top: 0;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.add-customer-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .full-width {
@@ -7,14 +17,33 @@ mat-form-field {
 }
 
 .btn-sec {
-  text-align: right;
+  text-align: center;
   margin-top: 1.5em;
 }
 
-.primary {
-  color: #1976d2;
+.cancel-btn, mat-raised-button {
+  border-radius: 25px;
+  padding: 12px 24px;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
-.add-customer-form {
-  width: 100%;
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+  margin-right: 10px;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f;
+}
+
+mat-raised-button {
+  background-color: #1976d2;
+  color: white;
+}
+
+mat-raised-button:hover {
+  background-color: #1565c0;
 }

@@ -13,4 +13,5 @@ public class SavingAccountDTO extends BankAccountDTO{
     private AccountStatus accountStatus;
     private CustomerDTO customerDTO;
     private double interestRate;
+
 }
