@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-accounts',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './accounts.component.css'
 })
 export class AccountsComponent {
+
+  addAccountForm!: FormGroup;
+
 
 }

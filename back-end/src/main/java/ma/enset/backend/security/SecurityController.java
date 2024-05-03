@@ -21,11 +21,12 @@ public class SecurityController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtEncoder jwtEncoder;
+
     @GetMapping("/profile")
     public Authentication getAuthentication(Authentication authentication) {
         return authentication;
     }
-    
+
     @PostMapping("/login")
     public Map<String, String> login(String username, String password) {
         Authentication authentication = authenticationManager.authenticate(new
@@ -44,6 +45,6 @@ public class SecurityController {
                 jwtClaimsSet
         );
         String jwt = jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
-        return Map.of("access-token",jwt);
+        return Map.of("access-token", jwt);
     }
 }

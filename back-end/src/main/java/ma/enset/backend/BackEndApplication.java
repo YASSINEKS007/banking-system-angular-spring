@@ -1,5 +1,6 @@
 package ma.enset.backend;
 
+import ma.enset.backend.dtos.BankAccountDTO;
 import ma.enset.backend.dtos.CustomerDTO;
 import ma.enset.backend.entities.*;
 import ma.enset.backend.enums.AccountStatus;
@@ -29,9 +30,8 @@ public class BackEndApplication {
     /*@Bean
     CommandLineRunner commandLineRunner(BankService bankAccountService) {
         return args -> {
-            bankAccountService.transfer("04dac7c3-48f8-4758-a135-c09ec3992ccf", "0fdf1091-5496-497d-82b2-2f4e3e4d3faf", 100, "");
-
-
+            List<BankAccountDTO> bankAccounts = bankAccountService.findBankAccountsByCustomerIdDTO(4L);
+            bankAccounts.forEach(System.out::println);
         };
     }*/
 

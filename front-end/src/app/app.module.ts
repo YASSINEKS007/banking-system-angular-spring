@@ -27,7 +27,11 @@ import {AddCustomerComponent} from './add-customer/add-customer.component';
 import {MatDialogClose} from "@angular/material/dialog";
 import {UpdateCustomerComponent} from './update-customer/update-customer.component';
 import {appHttpInterceptor} from "./interceptors/app-http.interceptor";
-import { UserInfosComponent } from './user-infos/user-infos.component';
+import {UserInfosComponent} from './user-infos/user-infos.component';
+import {MyAccountsComponent} from './my-accounts/my-accounts.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -42,6 +46,7 @@ import { UserInfosComponent } from './user-infos/user-infos.component';
     AddCustomerComponent,
     UpdateCustomerComponent,
     UserInfosComponent,
+    MyAccountsComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,10 @@ import { UserInfosComponent } from './user-infos/user-infos.component';
     MatPaginatorModule,
     MatTableModule,
     FormsModule,
-    MatDialogClose
+    MatDialogClose,
+    MatSelectModule,
+    MatOptionModule,
+    MatSortModule
   ],
   providers: [
     provideAnimationsAsync(),

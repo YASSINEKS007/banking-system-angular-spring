@@ -51,6 +51,12 @@ public interface BankService {
     void transfer(String fromAccountId, String toAccountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException;
 
 
+    List<BankAccount> findBankAccountsByCustomerId(Long customerId);
+
+    List<BankAccountDTO> findBankAccountsByCustomerIdDTO(Long customerId);
+
+    List<String> findBankAccountIdsByCustomerId(Long customerId);
+
     List<AccountOperation> accountOperationsHistory(String accountId);
 
     List<AccountOperationDTO> accountOperationsHistoryDTO(String accountId);

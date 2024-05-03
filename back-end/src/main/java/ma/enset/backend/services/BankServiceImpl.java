@@ -199,6 +199,26 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
+    public List<BankAccount> findBankAccountsByCustomerId(Long customerId) {
+        return customerRepository.findBankAccountsByCustomerId(customerId);
+    }
+
+    @Override
+    public List<BankAccountDTO> findBankAccountsByCustomerIdDTO(Long customerId) {
+        return customerRepository.findBankAccountsByCustomerId(customerId).stream()
+                .map(bankAccount -> bankMapper.fromBankAccount(bankAccount))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> findBankAccountIdsByCustomerId(Long customerId) {
+        return customerRepository.findBankAccountsByCustomerId(customerId).stream()
+                .map(BankAccount::getId)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
     public List<AccountOperation> accountOperationsHistory(String accountId) {
         return accountOperationRepository.findByBankAccount_Id(accountId);
 
