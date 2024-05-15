@@ -24,14 +24,22 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {AddCustomerComponent} from './add-customer/add-customer.component';
-import {MatDialogClose} from "@angular/material/dialog";
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {UpdateCustomerComponent} from './update-customer/update-customer.component';
 import {appHttpInterceptor} from "./interceptors/app-http.interceptor";
 import {UserInfosComponent} from './user-infos/user-infos.component';
 import {MyAccountsComponent} from './my-accounts/my-accounts.component';
 import {MatSelectModule} from "@angular/material/select";
-import {MatOptionModule} from "@angular/material/core";
+import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {MatSortModule} from "@angular/material/sort";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import { UpdateAccountComponent } from './update-account/update-account.component';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerModule,
+  MatDatepickerToggle
+} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -47,6 +55,7 @@ import {MatSortModule} from "@angular/material/sort";
     UpdateCustomerComponent,
     UserInfosComponent,
     MyAccountsComponent,
+    UpdateAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +83,18 @@ import {MatSortModule} from "@angular/material/sort";
     MatDialogClose,
     MatSelectModule,
     MatOptionModule,
-    MatSortModule
+    MatSortModule,
+    MatTabGroup,
+    MatTableModule,
+    MatTableModule,
+    MatDialogContent,
+    MatDialogTitle,
+    MatDialogActions,
+    MatTab,
+    MatDatepickerToggle,
+    MatDatepickerInput,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     provideAnimationsAsync(),

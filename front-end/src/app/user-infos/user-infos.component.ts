@@ -13,6 +13,8 @@ export class UserInfosComponent implements OnInit {
   userId = 4;
   name!: string;
   email!: string;
+  password : string = "12345";
+  hidePassword = true;
 
   constructor(public authService: AuthService,
               private customerService: CustomersService,
@@ -32,6 +34,14 @@ export class UserInfosComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  savePassword() {
+    console.log('Password saved:', this.password);
   }
 
 

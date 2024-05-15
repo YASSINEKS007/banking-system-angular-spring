@@ -21,7 +21,7 @@ export class CustomersComponent implements OnInit {
   constructor(
     private customersService: CustomersService,
     private errorService: ErrorsService,
-    private dialog: MatDialog // <-- Add MatDialog here
+    private dialog: MatDialog
   ) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -73,7 +73,7 @@ export class CustomersComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
+    if (this.dataSource.any) {
       this.dataSource.paginator.firstPage();
     }
   }

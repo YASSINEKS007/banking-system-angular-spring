@@ -37,6 +37,7 @@ public class SecurityConfig {
 
     @Value("${jwt.secretKey}")
     private String secretKey;
+
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         return new InMemoryUserDetailsManager(

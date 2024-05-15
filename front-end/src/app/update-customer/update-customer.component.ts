@@ -12,12 +12,12 @@ import { Customer } from "../model/customer.model";
 export class UpdateCustomerComponent implements OnInit {
 
   addCustomerForm!: FormGroup;
-  customerData: any; // <-- Add this line
+  customerData: any;
 
-  @Output() customerUpdated = new EventEmitter<string>(); // <-- Change this line
+  @Output() customerUpdated = new EventEmitter<string>();
 
   constructor(
-    public dialogRef: MatDialogRef<UpdateCustomerComponent>, // <-- Change this line
+    public dialogRef: MatDialogRef<UpdateCustomerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private customerService: CustomersService,
@@ -29,9 +29,8 @@ export class UpdateCustomerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]]
     });
 
-    this.customerData = this.data.customerData; // <-- Add this line
+    this.customerData = this.data.customerData;
 
-    // If customer data is passed, populate the form fields
     if (this.customerData) { // <-- Change this line
       const { name, email } = this.customerData;
       this.addCustomerForm.patchValue({ name, email });

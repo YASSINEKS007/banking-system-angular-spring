@@ -4,6 +4,7 @@ import lombok.Data;
 import ma.enset.backend.enums.OperationType;
 
 import java.util.Date;
+
 @Data
 
 public class AccountOperationDTO {
