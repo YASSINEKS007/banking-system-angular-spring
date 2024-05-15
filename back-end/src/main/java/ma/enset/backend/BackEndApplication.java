@@ -30,8 +30,7 @@ public class BackEndApplication {
     /*@Bean
     CommandLineRunner commandLineRunner(BankService bankAccountService) {
         return args -> {
-            List<BankAccountDTO> bankAccounts = bankAccountService.findBankAccountsByCustomerIdDTO(4L);
-            bankAccounts.forEach(System.out::println);
+            bankAccountService.deleteAccount("0787e914-d38e-443a-8197-5d9918a4223c");
         };
     }*/
 
@@ -80,5 +79,4 @@ public class BackEndApplication {
 		};
 
 	}*/
-
 }

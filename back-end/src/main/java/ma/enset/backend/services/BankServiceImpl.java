@@ -15,6 +15,7 @@ import ma.enset.backend.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -155,6 +156,21 @@ public class BankServiceImpl implements BankService {
         }).collect(Collectors.toList());
     }
 
+    @Override
+    public List<SavingAccountDTO> getSavingAccounts() {
+        return bankAccountRepository.findAll().stream()
+                .filter(bankAccount -> bankAccount instanceof SavingAccount)
+                .map(bankAccount -> bankMapper.fromSavingBankAccount((SavingAccount) bankAccount))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CurrentAccountDTO> getCurrentAccounts() {
+        return bankAccountRepository.findAll().stream()
+                .filter(bankAccount -> bankAccount instanceof CurrentAccount)
+                .map(bankAccount -> bankMapper.fromCurrentBankAccount((CurrentAccount) bankAccount))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public void debit(String accountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException {
@@ -192,7 +208,7 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public void transfer(String fromAccountId, String toAccountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException {
+    public void transfer(String fromAccountId, String toAccountId, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException {
         debit(fromAccountId, amount, "Transferring the amount " + amount + " to " + toAccountId);
 
         credit(toAccountId, amount, "Receiving " + amount + " from " + fromAccountId);
@@ -242,5 +258,53 @@ public class BankServiceImpl implements BankService {
         return accountHistoryDTO;
     }
 
+    @Override
+    public List<String> getBankAccountIdsForTransaction() {
+        return bankAccountRepository.findAll().stream()
+                .map(BankAccount::getId)
+                .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<SavingAccountDTO> savingAccountsDTOByUserId(Long id){
+        List<String> bankAccountIds = findBankAccountIdsByCustomerId(id);
+        List<SavingAccountDTO> savingAccountDTOs = new ArrayList<>();
+
+        for(String bankAccountId : bankAccountIds) {
+            try {
+                BankAccountDTO bankAccountDTO = getBankAccountDTO(bankAccountId);
+                if(bankAccountDTO instanceof SavingAccountDTO){
+                    savingAccountDTOs.add((SavingAccountDTO) bankAccountDTO);
+                }
+            } catch (BankAccountNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return savingAccountDTOs;
+    }
+
+    @Override
+    public List<CurrentAccountDTO> currentAccountsDTOByUserId(Long id){
+        List<String> bankAccountIds = findBankAccountIdsByCustomerId(id);
+        List<CurrentAccountDTO> currentAccountDTOS = new ArrayList<>();
+
+        for(String bankAccountId : bankAccountIds) {
+            try {
+                BankAccountDTO bankAccountDTO = getBankAccountDTO(bankAccountId);
+                if(bankAccountDTO instanceof CurrentAccountDTO){
+                    currentAccountDTOS.add((CurrentAccountDTO) bankAccountDTO);
+                }
+            } catch (BankAccountNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return currentAccountDTOS;
+    }
+
+    @Override
+    public void deleteAccount(String id){
+        bankAccountRepository.deleteById(id);
+    }
 }

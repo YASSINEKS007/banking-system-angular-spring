@@ -8,7 +8,7 @@
 
   <button mat-button routerLink="/admin/customers" *ngIf="this.authService.roles.includes('ADMIN')">Customers</button>
   <button mat-button routerLink="/admin/accounts" *ngIf="this.authService.roles.includes('ADMIN')">Accounts</button>
-  <button mat-button *ngIf="this.authService.isAuthenticated==true">{{ authService.username }}</button>
+  <button mat-button *ngIf="this.authService.isAuthenticated">{{ authService.username }}</button>
   <button (click)="logout()" mat-button mat-raised-button color="accent">Logout</button>
 </mat-toolbar>
 

@@ -43,12 +43,15 @@ public interface BankService {
 
     List<BankAccount> getBankAccounts();
 
-
     List<BankAccountDTO> getBankAccountsDTO();
+
+    List<SavingAccountDTO> getSavingAccounts();
+
+    List<CurrentAccountDTO> getCurrentAccounts();
 
     void debit(String accountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException;
     void credit(String accountId, double amount, String description) throws BankAccountNotFoundException;
-    void transfer(String fromAccountId, String toAccountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException;
+    void transfer(String fromAccountId, String toAccountId, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException;
 
 
     List<BankAccount> findBankAccountsByCustomerId(Long customerId);
@@ -62,4 +65,12 @@ public interface BankService {
     List<AccountOperationDTO> accountOperationsHistoryDTO(String accountId);
 
     AccountHistoryDTO getAccountHistoryDTO(String accountId) throws BankAccountNotFoundException;
+
+    List<String> getBankAccountIdsForTransaction();
+
+    List<SavingAccountDTO> savingAccountsDTOByUserId(Long id);
+
+    List<CurrentAccountDTO> currentAccountsDTOByUserId(Long id);
+
+    void deleteAccount(String id);
 }

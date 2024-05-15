@@ -31,6 +31,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   accountOperations(id: string) {
+    this.selectedAccountId = id; // Set the selectedAccountId here
     this.http.get<any[]>(`http://localhost:8085/account-operations/${id}`).subscribe(
       {
         next: (data: any[]) => {

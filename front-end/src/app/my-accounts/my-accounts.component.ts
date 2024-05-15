@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ErrorsService } from "../services/errors.service";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { MatTableDataSource } from "@angular/material/table";
-import { AccountsService } from "../services/accounts.service";
-import { BankAccount } from "../model/bankAccount.model";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ErrorsService} from "../services/errors.service";
+import {MatDialog} from "@angular/material/dialog";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
+import {AccountsService} from "../services/accounts.service";
+import {SavingAccount} from "../model/SavingAccount.model";
+import {CurrentAccount} from "../model/CurrentAccount.model";
 
 @Component({
   selector: 'app-my-accounts',
@@ -14,57 +15,71 @@ import { BankAccount } from "../model/bankAccount.model";
 })
 export class MyAccountsComponent implements OnInit {
   private userId = 4;
-  public dataSource: MatTableDataSource<BankAccount>; // Update the type based on your model
-  public displayedColumns = ['id', 'balance', 'createdAt', 'accountStatus', 'type']; // Update the columns based on your model
+  public dataSourceSaving: MatTableDataSource<SavingAccount>;
+  public dataSourceCurrent: MatTableDataSource<CurrentAccount>;
+  public displayedColumnsSaving = ['id', 'balance', 'createdAt', 'accountStatus', 'interestRate'];
+  public displayedColumnsCurrent = ['id', 'balance', 'createdAt', 'accountStatus', 'overDraft'];
 
   constructor(
     private accountsService: AccountsService,
     private errorService: ErrorsService,
     private dialog: MatDialog // <-- Add MatDialog here
   ) {
-    this.dataSource = new MatTableDataSource<BankAccount>();
+    this.dataSourceSaving = new MatTableDataSource<SavingAccount>();
+    this.dataSourceCurrent = new MatTableDataSource<CurrentAccount>();
   }
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('paginatorSaving') paginatorSaving!: MatPaginator;
+  @ViewChild('sortSaving') sortSaving!: MatSort;
+  @ViewChild('paginatorCurrent') paginatorCurrent!: MatPaginator;
+  @ViewChild('sortCurrent') sortCurrent!: MatSort;
 
   ngOnInit(): void {
-    this.getUserAccounts();
+    this.getUserSavingAccounts(this.userId);
+    this.getUserCurrentAccounts(this.userId);
   }
 
-  getUserAccounts(): void {
-    this.accountsService.getUserAccounts(this.userId).subscribe({
-      next: (data: BankAccount[]) => {
-        console.log('Data received: ', data);
-        this.dataSource.data = data;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-
-        if (data.length === 0) {
-          this.errorService.openSnackBar(
-            'No data received!',
-            'Close',
-            'red-snackbar'
-          );
+  getUserSavingAccounts(id: number) {
+    this.accountsService.getUserSavingAccounts(id).subscribe(
+      {
+        next: (data: any) => {
+          console.log('Saving Accounts: ', data);
+          this.dataSourceSaving.data = data;
+          this.dataSourceSaving.paginator = this.paginatorSaving;
+          this.dataSourceSaving.sort = this.sortSaving;
         }
-      },
-      error: (err) => {
-        console.log(err);
-        this.errorService.openSnackBar(
-          'Error occurred!',
-          'Close',
-          'red-snackbar'
-        );
-      },
-    });
+      }
+    )
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  getUserCurrentAccounts(id: number) {
+    this.accountsService.getUserCurrentAccounts(id).subscribe(
+      {
+        next: (data: any) => {
+          console.log('Current Accounts: ', data);
+          this.dataSourceCurrent.data = data;
+          this.dataSourceCurrent.paginator = this.paginatorCurrent;
+          this.dataSourceCurrent.sort = this.sortCurrent;
+        }
+      }
+    )
+  }
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  applySavingFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceSaving.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSourceSaving.paginator) {
+      this.dataSourceSaving.paginator.firstPage();
+    }
+  }
+
+  applyCurrentFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceCurrent.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSourceCurrent.paginator) {
+      this.dataSourceCurrent.paginator.firstPage();
     }
   }
 }

@@ -43,8 +43,6 @@ public class CustomerRestController {
     @DeleteMapping(path = "/delete-customer/{id}")
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public void deleteCustomer(@PathVariable Long id) {
-        System.out.println(id);
         bankService.deleteCustomer(id);
     }
-
 }
