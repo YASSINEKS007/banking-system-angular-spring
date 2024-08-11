@@ -1,4 +1,3 @@
-// error.service.ts
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
